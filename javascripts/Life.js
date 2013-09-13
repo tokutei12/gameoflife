@@ -69,9 +69,10 @@ LifeContainer = function(width, height){
 				}
 	  		}
 	  	}
+	  	var endgame = (grid.compare2d(newgrid));
 	  	grid = newgrid;
 	  	this.container = grid;
-	  	this.printGrid();
+	  	return endgame;
 	  }, 
 	  validLocation: function(x, y){
 	  	if(0 > x || x >= width || 0 > y || y >= height){

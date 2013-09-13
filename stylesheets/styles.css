@@ -26,20 +26,31 @@ p > strong {
 }
 
 #canvas_container {
-	margin:20px 0;
+	margin: 15px 0;
 	width: 640px; 
 	height: 400px;
+}
+
+.bottom-margin-bump {
+	display: inline-block;
+	margin-bottom: 10px;
+}
+
+#player-functions {
+	display: inline-block;
+	margin-left: 20px;
+	vertical-align: bottom;
 }
 
 button {
 	background-color: rgb(0, 136, 204);
 	border: none;
 	color: white;
-	font-family:Arial, Helvetica;
-	font-size:14px;
+	font-family: Arial, Helvetica;
+	font-size: 14px;
 	text-shadow: 0px -1px 0px #374683;
-	padding:9px 12px;
-	margin:0 10px 0 5px;
+	padding: 9px 12px;
+	margin: 0 10px 0 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 }

@@ -2,6 +2,9 @@
 	// initialize the life board
 	var life = new LifeContainer(16, 10);
 
+	// initialize timer object to run simulation
+	var timer = undefined;
+
 	// define some colors
 	var black = Color(0,0,0);
 	var grey = Color(34,34,34);
@@ -41,9 +44,15 @@
 	paint();
 
 	var repaint = function(){
+		var endgame = life.step();
 		pad.clear();
-		life.step();
 		paint();
+		if(endgame){
+			if(timer !== undefined){
+				pause();
+			}
+
+		}
 	};
 
 	var reset = function(){
@@ -52,6 +61,25 @@
 		paint();
 	};
 
+	var play = function(){
+		timer = setInterval(repaint, 250);
+		document.getElementById("play").innerHTML = "Pause";
+		document.getElementById("play").id = "pause";
+		//add event listener to pause button
+		document.getElementById("pause").removeEventListener("click", play, false);
+		document.getElementById("pause").addEventListener("click", pause, false);
+	};
+
+	var pause = function(){
+		clearInterval(timer);
+		timer = undefined;
+		document.getElementById("pause").innerHTML = "Play";
+		document.getElementById("pause").id = "play";
+		//add event listener back to play button
+		document.getElementById("play").removeEventListener("click", pause, false)
+		document.getElementById("play").addEventListener("click", play, false);
+	}
+
 	// add event listener to step button 
 	var step_button = document.getElementById("nextstep");
 	step_button.addEventListener("click", repaint, false);
@@ -59,4 +87,8 @@
 	//add event listener to reset button
 	var reset_button = document.getElementById("reset");
 	reset_button.addEventListener("click", reset, false);
+
+	//add event listener to reset button
+	var play_button = document.getElementById("play");
+	play_button.addEventListener("click", play, false);
 	}) ()
