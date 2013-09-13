@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script src="graphics.js"></script>
-    <style>
-        #canvas_container {position: absolute; left: 100px; top: 100px; width: 400px; height: 400px;}
-    </style>
+    <script src="javascripts/graphics.js"></script>
+    <link rel="stylesheet" href="stylesheets/styles.css" type="text/css">
+    <title>The Game of Life - Kimberly Toy</title>
 </head>
 
 <body>
-
+<h1>The Game of Life</h1>
 <!--
 define the HTML canvas element that will hold the graphical output
 -->
+<button id="reset" type="button">Reset</button>
+<button id="nextstep" type="button">Next Step</button>
 <div id="canvas_container">
     <canvas id="canvas"></canvas>
 </div>
-<button id="nextstep" type="button">Next Step</button>
 <!--
 execute the JavaScript
 -->
-<script src="Life.js"></script>
-<script src="Life_basic_drawing.js"></script>
+<script src="javascripts/Life.js"></script>
+<script src="javascripts/Life_basic_drawing.js"></script>
 </body>
 </html>
