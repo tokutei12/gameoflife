@@ -1,15 +1,50 @@
+html {
+	max-width: 960px;
+	margin: 10px auto;
+}
+
 body {
 	background-color:#222;
 	color:#FFF;
+	font-family:Arial, Helvetica;
 	width:960px;
 }
 
-h1 {
-	font-family:Arial;
+h3 {
+	color: rgb(204, 204, 204);
+	margin: 14px 0;
+}
+
+p {
+	color: rgb(204, 204, 204);
+	font-size: 14px;
+}
+
+p > strong {
+	color: #FFF;
+	font-weight: 500;
 }
 
 #canvas_container {
-	margin:20px;
+	margin:20px 0;
 	width: 400px; 
 	height: 400px;
 }
+
+button {
+	background-color: rgb(0, 136, 204);
+	border: none;
+	color: white;
+	font-family:Arial, Helvetica;
+	font-size:14px;
+	text-shadow: 0px -1px 0px #374683;
+	padding:9px 12px;
+	margin:0 10px 0 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+button:hover {
+	background-color: rgb(34, 161, 224);
+	cursor:pointer;
+};
