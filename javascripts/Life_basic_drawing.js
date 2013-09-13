@@ -1,6 +1,6 @@
 (function () {
 	// initialize the life board
-	var life = new LifeContainer(10);
+	var life = new LifeContainer(16, 10);
 
 	// define some colors
 	var black = Color(0,0,0);
@@ -11,28 +11,26 @@
 	pad = Pad(document.getElementById('canvas'));
 	pad.clear();
     
-	// set constants to be able to scale to any canvas size
-	var MAX_X = 110;
-	var MAX_Y = 110;
-	var x_factor = pad.get_width() / MAX_X;
-	var y_factor = pad.get_height() / MAX_Y;
+	// size of Life board - default 25x10
+	var grid_x = 16;
+	var grid_y = 10;
 
-	// draw some circles and squares inside
-	var RADIUS = 5;
-	var LINE_WIDTH = 2;
+	var grid_thickness = 5;
 
 	var paint = function(){
-		for (var i = 10; i < MAX_X; i = i + 10) {
-			pad.draw_line({x:pad.get_width()*i/100, y:0}, {x:pad.get_width()*i/100, y:400}, 5, grey);
-			for (var j = 10; j < MAX_Y; j = j + 10) {
-				pad.draw_line({x:0, y:pad.get_height()*j/100}, {x:400, y:pad.get_height()*j/100}, 5, grey);
+		for (var i = 0; i < grid_x; i++) {
+			pad.draw_line(Coord(pad.get_width()*i/grid_x, 0), Coord(pad.get_width()*i/grid_x, 
+				pad.get_height()), grid_thickness, grey);
+			for (var j = 0; j < grid_y; j++) {
+				pad.draw_line(Coord(0, pad.get_height()*j/grid_y), Coord(pad.get_width(), 
+					pad.get_height()*j/grid_y), grid_thickness, grey);
 				// draw white squares for cells that are alive
-				if (life.container[i / 10 - 1][j / 10 - 1]===true) {
-					pad.draw_rectangle({x:pad.get_width()*(i/10-1)/10+5, y:pad.get_height()*(j/10-1)/10+5}, pad.get_width()/10-10, pad.get_height()/10-10, 0, white, white );
+				if (life.container[i][j] === true) {
+					pad.draw_rectangle({x:pad.get_width()*i/grid_x+grid_thickness, y:pad.get_height()*j/grid_y+grid_thickness}, pad.get_width()/grid_x-2*grid_thickness, pad.get_height()/grid_y-2*grid_thickness, 0, white, white );
 				} else {
-					pad.draw_rectangle({x:pad.get_width()*(i/10-1)/10+5, y:pad.get_height()*(j/10-1)/10+5}, pad.get_width()/10-10, pad.get_height()/10-10, 0,black, black );
-					}
+					pad.draw_rectangle({x:pad.get_width()*i/grid_x+grid_thickness, y:pad.get_height()*j/grid_y+grid_thickness}, pad.get_width()/grid_x-2*grid_thickness, pad.get_height()/grid_y-2*grid_thickness, 0, black, black );
 				}
+			}
 		}
 	};
 
@@ -45,7 +43,7 @@
 	};
 
 	var reset = function(){
-		life = new LifeContainer(10);
+		life = new LifeContainer(16, 10);
 		pad.clear();
 		paint();
 	};

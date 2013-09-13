@@ -1,9 +1,9 @@
-LifeContainer = function(size){
+LifeContainer = function(width, height){
     //initialize grid
-    var grid = new Array(size);
-    for (var i = 0; i < size; i++){
-      grid[i] = [];
-      for (var j = 0; j < size; j++){
+    var grid = new Array(width);
+    for (var i = 0; i < width; i++){
+      grid[i] = new Array(height);
+      for (var j = 0; j < height; j++){
       	if(Math.random()>0.5){ grid[i][j] = true; }
       	else{ grid[i][j] = false; }
       }
@@ -39,8 +39,8 @@ LifeContainer = function(size){
 	  },
 	  printGrid: function(){
 	  	var line = "";
-	  	for(var i = 0; i < size; i++){
-	  		for(var j = 0; j < size; j++){
+	  	for(var i = 0; i < width; i++){
+	  		for(var j = 0; j < height; j++){
 	  			if(grid[i][j]===true){
 				  line+="o ";
 				}
@@ -54,13 +54,13 @@ LifeContainer = function(size){
 	  	console.log("\n");
 	  },
 	  step: function(){
-	  	var newgrid = new Array(size);
-	    for (var i = 0; i < size; i++){
-	      newgrid[i] = new Array(size);
+	  	var newgrid = new Array(width);
+	    for (var i = 0; i < width; i++){
+	      newgrid[i] = new Array(height);
 	    }
 	    //iterate through old grid
-	  	for(var i = 0; i < size; i++){
-	  		for(var j = 0; j < size; j++){
+	  	for(var i = 0; i < width; i++){
+	  		for(var j = 0; j < height; j++){
 	  			if(this.meetsLivingCond(i, j)){
 				  newgrid[i][j] = true;
 				}
@@ -74,7 +74,7 @@ LifeContainer = function(size){
 	  	this.printGrid();
 	  }, 
 	  validLocation: function(x, y){
-	  	if(0 > x || x >= size || 0 > y || y >= size){
+	  	if(0 > x || x >= width || 0 > y || y >= height){
 	  		return false;
 	  	}
 	  	return true;
