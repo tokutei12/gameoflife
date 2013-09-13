@@ -1,9 +1,9 @@
 (function () {
-	// define some colors
+	// initialize the life board
 	var life = new LifeContainer(10);
+
+	// define some colors
 	var black = Color(0,0,0);
-	var red = Color(255,0,0);
-	var green = Color(0,255,0);
 	var grey = Color(34,34,34);
 	var white = Color(255,255,255);
     
@@ -26,8 +26,8 @@
 			pad.draw_line({x:pad.get_width()*i/100, y:0}, {x:pad.get_width()*i/100, y:400}, 5, grey);
 			for (var j = 10; j < MAX_Y; j = j + 10) {
 				pad.draw_line({x:0, y:pad.get_height()*j/100}, {x:400, y:pad.get_height()*j/100}, 5, grey);
-				// select circle or square according some arbitrary criterion
-				if (life.container[i / 10 - 1][j / 10 - 1].alive) {
+				// draw white squares for cells that are alive
+				if (life.container[i / 10 - 1][j / 10 - 1]===true) {
 					pad.draw_rectangle({x:pad.get_width()*(i/10-1)/10+5, y:pad.get_height()*(j/10-1)/10+5}, pad.get_width()/10-10, pad.get_height()/10-10, 0, white, white );
 				} else {
 					pad.draw_rectangle({x:pad.get_width()*(i/10-1)/10+5, y:pad.get_height()*(j/10-1)/10+5}, pad.get_width()/10-10, pad.get_height()/10-10, 0,black, black );
@@ -45,7 +45,6 @@
 	};
 
 	var reset = function(){
-		console.log("reset");
 		life = new LifeContainer(10);
 		pad.clear();
 		paint();

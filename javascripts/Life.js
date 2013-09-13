@@ -1,20 +1,11 @@
-Cell = function(living){
-	return {
-	  alive: living
-	  //changeState: function(){living = (living ? false : true);}
-	};
-}
-
-//Life.prototype = {}
-
 LifeContainer = function(size){
     //initialize grid
     var grid = new Array(size);
     for (var i = 0; i < size; i++){
       grid[i] = [];
       for (var j = 0; j < size; j++){
-      	if(Math.random()>0.5){ grid[i][j] = new Cell(true); }
-      	else{ grid[i][j] = new Cell(false); }
+      	if(Math.random()>0.5){ grid[i][j] = true; }
+      	else{ grid[i][j] = false; }
       }
     }
 
@@ -30,7 +21,7 @@ LifeContainer = function(size){
         for (var i = 0; i < neighborLocs.length; i++){
         	for(var j = 0; j < neighborLocs.length; j++){
         		if(!(i===1 && j===1) && this.validLocation(x + neighborLocs[i]) && this.validLocation(y + neighborLocs[j])){
-        			if(grid[x + neighborLocs[i]][y + neighborLocs[j]].alive){ aliveNeighbors++; }
+        			if(grid[x + neighborLocs[i]][y + neighborLocs[j]]===true){ aliveNeighbors++; }
         		}
         	}
         }
@@ -38,10 +29,10 @@ LifeContainer = function(size){
 	  },
 	  meetsLivingCond: function(x, y){
 	  	var liveNeighbors = this.checkNeighbors(x, y);
-	  	if(grid[x][y].alive && (liveNeighbors===2 || liveNeighbors===3)){
+	  	if(grid[x][y]===true && (liveNeighbors===2 || liveNeighbors===3)){
 	  		return true;
 	  	}
-	  	else if (!(grid[x][y].alive) && liveNeighbors===3){
+	  	else if (!(grid[x][y]===true) && liveNeighbors===3){
 	  		return true;
 	  	}
 	  	return false;
@@ -50,7 +41,7 @@ LifeContainer = function(size){
 	  	var line = "";
 	  	for(var i = 0; i < size; i++){
 	  		for(var j = 0; j < size; j++){
-	  			if(grid[i][j].alive){
+	  			if(grid[i][j]===true){
 				  line+="o ";
 				}
 				else{
@@ -71,10 +62,10 @@ LifeContainer = function(size){
 	  	for(var i = 0; i < size; i++){
 	  		for(var j = 0; j < size; j++){
 	  			if(this.meetsLivingCond(i, j)){
-				  newgrid[i][j] = new Cell(true);
+				  newgrid[i][j] = true;
 				}
 				else{
-				  newgrid[i][j] = new Cell(false);
+				  newgrid[i][j] = false;
 				}
 	  		}
 	  	}
