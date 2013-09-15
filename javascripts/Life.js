@@ -105,7 +105,7 @@ Life = function(width, height, density, preset){
 		for (var i = 0; i < width; i++){
 			newgrid[i] = new Array(height);
 		}
-		//iterate through old grid
+		// iterate through old grid
 		for(var i = 0; i < width; i++){
 			for(var j = 0; j < height; j++){
 				if(that.meetsLivingCond(i, j)){

@@ -1,3 +1,6 @@
+// Qunit tests for project0
+// Author: Kimberly Toy
+
 test("Test Life Constructor -- Intializes interal array to correct dimensions and contains correct types", function() {
 	var life = Life(5, 3, 0.4);
 	ok(life instanceof Life, "object is initialized to type Life");

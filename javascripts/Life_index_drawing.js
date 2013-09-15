@@ -1,3 +1,7 @@
+// Anonymous function to initialize drawing pad and draw Life board
+// on the index page
+// Author: Kimberly Toy
+
 (function () {
 	// initialize the life board
 	var life = Life(64, 40, 0.4);
@@ -98,7 +102,7 @@
 	var reset_button = document.getElementById("reset");
 	reset_button.addEventListener("click", reset, false);
 
-	//add event listener to reset button
+	// add event listener to reset button
 	var play_button = document.getElementById("play");
 	play_button.addEventListener("click", play, false);
 	}) ()
