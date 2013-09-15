@@ -21,23 +21,15 @@
 </div>
 
 <h3>How to Play</h3> 
-<p>Click <strong>reset</strong> to generate a new board with randomly placed cells.  Click <strong>next step</strong> to advance the cells through the next stage of Life.</p>
+<p>Click <strong>reset</strong> to generate a new board with randomly placed cells.  Click <strong>next step</strong> to advance the cells through the next stage of Life.
 <br>
-<!--
-define the HTML canvas element that will hold the graphical output
--->
-<!-- <div> -->
-<!-- <div class="bottom-margin-bump"> -->
-  <button id="reset" type="button">Reset</button>
-  <button id="nextstep" type="button">Next Step</button>
-  <button id="play" type="button">Play</button>
-<!-- </div> -->
-<!-- <div id="player-functions">
-  <img alt="Start life simulation" src="images/skip-to-start-48.png"/>
-  <img alt="Start life simulation" src="images/play-48.png"/>
-  <img alt="Start life simulation" src="images/skip-to-start-48.png"/>
-</div> -->
-<!-- </div> -->
+Click <strong>play</strong> to run the simulation continuously and <strong>pause</strong> to pause it.
+</p>
+<br>
+
+<button id="reset" type="button">Reset</button>
+<button id="nextstep" type="button">Next Step</button>
+<button id="play" type="button">Play</button>
 
 <div id="canvas_container">
     <canvas id="canvas"></canvas>
@@ -47,6 +39,6 @@ execute the JavaScript
 -->
 <script src="javascripts/extra_functions.js"></script>
 <script src="javascripts/Life.js"></script>
-<script src="javascripts/Life_basic_drawing.js"></script>
+<script src="javascripts/Life_index_drawing.js"></script>
 </body>
 </html>
