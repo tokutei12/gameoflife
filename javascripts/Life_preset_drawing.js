@@ -1,7 +1,13 @@
 (function () {
-	// initialize the life board
-	var life = Life(64, 40, 0.4);
+	// initialize the blinker pattern and board
+	var blinker_preset = [[false, true, false], 
+						  [false, true, false], 
+						  [false, true, false]];
+	var blinker = new Life(0, 0, 0, blinker_preset);
 
+	// create the drawing pad object and associate with the canvas
+	pad = Pad(document.getElementById('canvas'));
+	pad.clear();
 	// initialize timer object to play the simulation continuously
 	var timer = undefined;
 
@@ -9,10 +15,6 @@
 	var black = Color(0,0,0);
 	var grey = Color(34,34,34);
 	var white = Color(255,255,255);
-    
-	// create the drawing pad object and associate with the canvas
-	pad = Pad(document.getElementById('canvas'));
-	pad.clear();
     
 	// size of Life board - default 64x40
 	var grid_x = 64;
@@ -62,7 +64,7 @@
 	// construct a new Life board and redraw the simulation
 	// if the timer is still running, leave it on "play" mode
 	var reset = function(){
-		life = Life(64, 40, 0.4);
+		life = new Life(64, 40, 0.4);
 		pad.clear();
 		paint();
 	};

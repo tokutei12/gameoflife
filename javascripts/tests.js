@@ -1,6 +1,6 @@
 test("Test Life Constructor -- Intializes interal array to correct dimensions and contains correct types", function() {
 	var life = Life(5, 3, 0.4);
-	ok(life, "life initialized to non-null or undefined value");
+	ok(life instanceof Life, "object is initialized to type Life");
 	var state = life.container();
 	equal(state.length, 5, "array width correct");
 	var correctHeight = true;
@@ -146,7 +146,7 @@ test("Test object mutability", function(){
 test("Time large case: 100x100", function(){
 	// time large cases to see that functions complete within reasonable times (under 100ms)
 	var now = Date.now();
-	var life = new Life(100, 100);
+	var life = Life(100, 100);
 	var now2 = Date.now();
 	ok((now2 - now) < 100, "Initialize 100x100 grid");
 	life.step();
