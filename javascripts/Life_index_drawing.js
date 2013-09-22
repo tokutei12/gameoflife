@@ -19,6 +19,18 @@ $(function () {
     var color = 'rgb(255,255,255)';
     var black = 'rgb(0,0,0)';
 
+    // manipulate cell DOM element to have the color and class to indicate death
+    var kill_cell = function(elem){
+        elem.removeClass("alive");
+        elem.css('background-color', black);
+    };
+
+    // manipulate cell DOM element to have the color and class to indicate life
+    var revive_cell = function(elem){
+        elem.addClass("alive");
+        elem.css('background-color', color);
+    }
+
     // function to initialize the table element that will represent the grid of cells
     var init_dom = function(){
         var tbody = $("<tbody></tbody>");
@@ -27,12 +39,12 @@ $(function () {
         for (var i = 0; i < grid_y; i++) {
             var row = $("<tr></tr>");
             for (var j = 0; j < grid_x; j++) {
+                // color the table cells based on the Life object's board
                 var new_cell = $("<td class='cell'></td>"); 
                 if (currState[j][i] === true) {
-                    new_cell.addClass('alive');
-                    new_cell.css('background-color', color);
+                    revive_cell(new_cell);
                 } else {
-                    new_cell.css('background-color', black);
+                    kill_cell(new_cell);
                 }
                 row.append(new_cell);
             }
@@ -47,14 +59,13 @@ $(function () {
     var paint = function(){
         var currState = life.container();
         var tbody = $("#canvas_container").find("tbody");
+        // loop through the table and recolor the table cells
         for (var i = 0; i < grid_y; i++) {
             for (var j = 0; j < grid_x; j++) {
                 if (currState[j][i] === true) {
-                    tbody.find('tr').eq(i).find('td').eq(j).addClass("alive");
-                    tbody.find('tr').eq(i).find('td').eq(j).css('background-color', color);
+                    revive_cell(tbody.find('tr').eq(i).find('td').eq(j));
                 } else {
-                    tbody.find('tr').eq(i).find('td').eq(j).removeClass("alive");
-                    tbody.find('tr').eq(i).find('td').eq(j).css('background-color', black);
+                    kill_cell(tbody.find('tr').eq(i).find('td').eq(j));
                 }
             }
         }
@@ -66,8 +77,7 @@ $(function () {
         var tbody = $("#canvas_container").find("tbody");
         for (var i = 0; i < grid_y; i++) {
             for (var j = 0; j < grid_x; j++) {
-                tbody.find('tr').eq(i).find('td').eq(j).removeClass("alive");
-                tbody.find('tr').eq(i).find('td').eq(j).css('background-color', black);
+                kill_cell(tbody.find('tr').eq(i).find('td').eq(j));
             }
         }
     };
@@ -150,8 +160,7 @@ $(function () {
         e.originalEvent.preventDefault();
         if(timer === undefined){
             $('.cell').bind('mouseover', function(){
-                $(this).addClass('alive');
-                $(this).css('background-color', color);
+                revive_cell($(this));
                 user_changed_board = true;
             });
         }
@@ -161,8 +170,7 @@ $(function () {
 
     $(document).on('mousedown', '.cell', function() { 
         if(timer === undefined){
-            $(this).addClass('alive');
-            $(this).css('background-color', color);
+            revive_cell($(this));
             user_changed_board = true;
         }
     });

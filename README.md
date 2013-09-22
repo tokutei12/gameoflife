@@ -1,15 +1,19 @@
-## Project 1 -- Conway's Game of Life 
+## Project 1 Part 2 -- Conway's Game of Life 
 #### Kimberly Toy
 
-Link to main page: http://toyk2a.scripts.mit.edu/6.170/index.html
+Link to main page: http://toyk2a.scripts.mit.edu/6.170/proj1_part2/index.html
 
-Link to test page: http://toyk2a.scripts.mit.edu/6.170/test.html
+Link to test page: http://toyk2a.scripts.mit.edu/6.170/proj1_part2/test.html
+
+- - -
+The extra feature that I added was to allow the user to change the color of the alive cells.  
 
 - - -
 The main design problems to resolve for this project were:
 
 - How to represent the Life board
 - How to paint the state of the board
+- How to allow users to set up the initial state of the board
 - What visibility should be of classes and variables
 
 - - -
@@ -25,32 +29,21 @@ of attempting clone a 2D array (having to clone each inner array), but having to
 2D board in one dimension was more likely to create more room for error.  
 
     I used a boolean to represent the cells, where true means that a cell in a given grid location is alive.  I originally 
-created a Cell object which had an alive property.  I intended to give the individual cell more functionality, such as 
-the ability to check how many live neighbors it had and whether it met the living conditions, but to implement these methods, 
-the cell would need access to the board object.  I felt that an individual cell shouldn't have access to these board/game-rule 
-dependent functions; instead, the board should implement the game rules (under what conditions a cell lives).  Because the cell 
-became stripped down to only having the alive property, it became more economical to represent it as a boolean rather than 
-initializing a full-blown object.
+created a Cell object, which I had scrapped because I believed that it would have an unnecessary access to the Life object's board.  
+After seeing the examples in class, I realized that this was not necessarily true, but I stuck to the current implementation, because
+it was cheaper to use a boolean representation for my immutable board, as for each step in the game, the Life object creates a new 2D
+array representing the board.  
 
     The Life class ensures that there is no representation exposure; when it returns the current state of the board, it makes a deep 
 copy of its internal array to return.  The only mutator function is step(), which follows the game rules to 'step' the board into 
 the next stage of life.  None of the Life object properties can be overwritten, because the object is frozen when initialized.  
 
-- To paint the board, I initialized an instance of the Life object, and created a paint method to draw the current state of the 
-life board.  The paint method allows for scalability given the canvas size and board size.  
+- To paint the board, I initialized an instance of the Life object, and created a table with each table cell representing a Life cell.  
+The table is only created once and during its creation, I attempted to minimize DOM reflow.  To repaint the board, I used JQuery to 
+modify the cell background-color attributes
 
-- All of the paint functionality is enclosed in an anonymous function so that the variables do not pollute the global namespace 
+- To allow for user interaction, I made the grid edittable such that the user could paint over the grid to add live cells.  Because my board object is immutable, I initialize a new Life object with a grid based on the contents of the HTML table each time the user edits the UI.  To minimize the number of times that I need to iterate over the table, I only reinitialize the Life object when the user clicks 'play' or 'next step'.  I also blocked the user from painting over the grid while the simulation is playing in order to prevent concurrent modifications to the life variable.  
+
+- All of the drawing functionality is enclosed in an anonymous function so that the variables do not pollute the global namespace 
 and the functions cannot be editted by the user.  The Life object is globally accessible, so that other files could create their 
 own Life instances.  
-
-- - -
-
-Taking it further: 
-
-Some ideas that I want to work with include
-
-- Creating a 'presets' page to display interesting Life patterns
-- Storing all the previous stages of a game so that a user can step forward and back
-- Letting a user paint patterns on the board
-- Making the board size adjustable through the UI 
-- Draw cells that have recently died in a unique color
