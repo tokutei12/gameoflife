@@ -2,7 +2,7 @@
 // on the index page
 // Author: Kimberly Toy
 
-(function () {
+$(function () {
     // initialize the life board
     var life = Life(64, 40, 0.4);
 
@@ -14,52 +14,70 @@
     var grey = Color(34,34,34);
     var white = Color(255,255,255);
     
-    // create the drawing pad object and associate with the canvas
-    pad = Pad(document.getElementById('canvas'));
-    pad.clear();
-    
     // size of Life board - default 64x40
     var grid_x = 64;
     var grid_y = 40;
 
-    var grid_thickness = 1;
+    var user_changed_board = false;
+
+    var init_dom = function(){
+        var tbody = $("<tbody></tbody>");
+        var currState = life.container();
+        for (var i = 0; i < grid_y; i++) {
+            var row = $("<tr></tr>");
+            for (var j = 0; j < grid_x; j++) {
+                if (currState[j][i] === true) {
+                    row.append("<td class='alive cell'></td>");
+                } else {
+                    row.append("<td class='cell'></td>");
+                }
+            }
+            tbody.append(row);
+        }
+        $("#canvas_container").append(tbody);
+    };
+
+    init_dom();
 
     // define paint function to paint the current state of the board
     var paint = function(){
         var currState = life.container();
-        for (var i = 0; i < grid_x; i++) {
-            //draw vertical grid lines
-            pad.draw_line(Coord(pad.get_width()*i/grid_x, 0), Coord(pad.get_width()*i/grid_x, 
-                pad.get_height()), grid_thickness, grey);
-            for (var j = 0; j < grid_y; j++) {
-                //draw horizontal grid lines
-                pad.draw_line(Coord(0, pad.get_height()*j/grid_y), Coord(pad.get_width(), 
-                    pad.get_height()*j/grid_y), grid_thickness, grey);
-                // draw white squares for cells that are alive, black for nonliving
-                if (currState[i][j] === true) {
-                    pad.draw_rectangle(Coord(pad.get_width()*i/grid_x+grid_thickness, pad.get_height()*j/grid_y+grid_thickness), 
-                        pad.get_width()/grid_x-2*grid_thickness, pad.get_height()/grid_y-2*grid_thickness, 0, white, white );
+        var tbody = $("#canvas_container").find("tbody");
+        for (var i = 0; i < grid_y; i++) {
+            for (var j = 0; j < grid_x; j++) {
+                if (currState[j][i] === true) {
+                    tbody.find('tr').eq(i).find('td').eq(j).addClass("alive")
                 } else {
-                    pad.draw_rectangle(Coord(pad.get_width()*i/grid_x+grid_thickness, pad.get_height()*j/grid_y+grid_thickness), 
-                        pad.get_width()/grid_x-2*grid_thickness, pad.get_height()/grid_y-2*grid_thickness, 0, black, black );
+                    tbody.find('tr').eq(i).find('td').eq(j).removeClass("alive")
                 }
             }
         }
     };
 
-    paint();
+    // clear the grid display to show a blank board, does not clear the board in the life object
+    var clear = function(){
+        var tbody = $("#canvas_container").find("tbody");
+        for (var i = 0; i < grid_y; i++) {
+            for (var j = 0; j < grid_x; j++) {
+                tbody.find('tr').eq(i).find('td').eq(j).removeClass("alive");
+            }
+        }
+        $("#canvas_container").html(tbody);
+    };
 
     // define repaint to clear and redraw the board
     // if the board has reached endgame, pause the simulation if the timer is running
     var repaint = function(){
+        if(user_changed_board){
+            player_init_board();
+            user_changed_board = false;
+        }
         var endgame = life.step();
-        pad.clear();
         paint();
         if(endgame){
             if(timer !== undefined){
                 pause();
             }
-
         }
     };
 
@@ -67,8 +85,26 @@
     // if the timer is still running, leave it on "play" mode
     var reset = function(){
         life = Life(64, 40, 0.4);
-        pad.clear();
-        paint();
+        repaint();
+    };
+
+    var player_init_board = function(){
+        console.log("reinit board");
+        var tbody = $("#canvas_container").find('tbody');
+        var grid = new Array(grid_x);
+        for (var i = 0; i< grid_x; i++) {
+            grid[i] = new Array(grid_y);
+        }
+        for (var i = 0; i < grid_y; i++) {
+            for (var j = 0; j < grid_x; j++) {
+                if (tbody.find('tr').eq(i).find('td').eq(j).hasClass("alive")) {
+                    grid[j][i] = true;
+                } else {
+                    grid[j][i] = false;
+                }
+            }
+        }
+        life = Life(0, 0, 0, grid);
     };
 
     // start the timer for continuous play
@@ -94,9 +130,29 @@
         document.getElementById("play").addEventListener("click", play, false);
     };
 
+    $('#canvas_container').mousedown(function(e){
+        e.originalEvent.preventDefault();
+        $('.cell').bind('mouseover', function(){
+            $(this).addClass('alive');
+            user_changed_board = true;
+        });
+    }).mouseup(function(){
+        $('.cell').unbind('mouseover');
+    });
+
+    $(document).on('mousedown', '.cell', function() { 
+        $(this).addClass('alive');
+        console.log('mousedown on node');
+        user_changed_board = true;
+    });
+
     // add event listener to step button 
     var step_button = document.getElementById("nextstep");
     step_button.addEventListener("click", repaint, false);
+
+    // add event listener to clear board so the player can draw their own pattern
+    var clear_button = document.getElementById("clear");
+    clear_button.addEventListener("click", clear, false);
 
     //add event listener to reset button
     var reset_button = document.getElementById("reset");
@@ -105,4 +161,5 @@
     // add event listener to reset button
     var play_button = document.getElementById("play");
     play_button.addEventListener("click", play, false);
-    }) ()
+
+});

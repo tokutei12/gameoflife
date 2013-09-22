@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" ></script>
     <script src="javascripts/graphics.js"></script>
     <link rel="stylesheet" href="stylesheets/styles.css" type="text/css">
     <title>The Game of Life</title>
@@ -27,13 +28,13 @@ Click <strong>play</strong> to run the simulation continuously and <strong>pause
 </p>
 <br>
 
-<button id="reset" type="button">Reset</button>
+<button id="reset" type="button">Random</button>
+<button id="clear" type="button">Clear</button>
 <button id="nextstep" type="button">Next Step</button>
 <button id="play" type="button">Play</button>
 
-<div id="canvas_container">
-    <canvas id="canvas"></canvas>
-</div>
+<table id="canvas_container">
+</table>
 <!--
 execute the JavaScript
 -->

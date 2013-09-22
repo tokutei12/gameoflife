@@ -49,7 +49,7 @@ Life = function(width, height, density, preset){
         return grid.deepClone();
     },
     // return the number of live neighboring cells
-    that.checkNeighbors = function(x, y){
+    that.countNeighbors = function(x, y){
         // return undefined to set off an error if the given loc is invalid
         if(!that.validLocation(x, y)){
             return undefined;
@@ -70,7 +70,7 @@ Life = function(width, height, density, preset){
         if(!that.validLocation(x, y)){
             return undefined;
         }
-        var liveNeighbors = that.checkNeighbors(x, y);
+        var liveNeighbors = that.countNeighbors(x, y);
         if(grid[x][y]===true && (liveNeighbors===2 || liveNeighbors===3)){
             return true;
         }

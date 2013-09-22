@@ -50,6 +50,24 @@ li {
 	margin: 15px 0;
 	width: 640px; 
 	height: 400px;
+	cursor: crosshair;
+}
+
+#canvas_container tr{
+	height: 8px;
+	margin-top: 2px;
+}
+
+#canvas_container td {
+	width: 8px;
+	margin-left: 2px;
+	background-color: rgb(0, 0, 0);
+}
+
+#canvas_container td.alive {
+	width: 8px;
+	margin-left: 2px;
+	background-color: rgb(255,255,255);
 }
 
 #player-functions {
