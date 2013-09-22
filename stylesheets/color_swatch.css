@@ -1,0 +1,44 @@
+.color_swatch {
+	display: inline-block;
+	margin: 13px;
+	vertical-align: top;
+}
+
+.color {
+	cursor: pointer;
+	height: 20px;
+	width: 20px;
+	margin: 5px;
+}
+
+.default {
+	background-color: rgb(255,255,255);
+}
+
+.grey {
+	background-color: rgb(177,198,198);
+}
+
+.red {
+	background-color: rgb(255,82,43);
+}
+
+.orange{
+	background-color: rgb(255,188,0);
+}
+
+.yellow {
+	background-color: rgb(232,246,0);
+}
+
+.lime {
+	background-color: rgb(166,239,43);
+}
+
+.aqua {
+	background-color: rgb(58,288,190);
+}
+
+.teal {
+	background-color: rgb(47,207,224);
+}

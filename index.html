@@ -5,6 +5,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" ></script>
     <script src="javascripts/graphics.js"></script>
     <link rel="stylesheet" href="stylesheets/styles.css" type="text/css">
+    <link rel="stylesheet" href="stylesheets/color_swatch.css" type="text/css">
     <title>The Game of Life</title>
 </head>
 
@@ -22,19 +23,29 @@
 </div>
 
 <h3>How to Play</h3> 
-<p>Click <strong>reset</strong> to generate a new board with randomly placed cells.  Click <strong>next step</strong> to advance the cells through the next stage of Life.
-<br>
-Click <strong>play</strong> to run the simulation continuously and <strong>pause</strong> to pause it.
-</p>
+<p>Click <span class='label'>Random</span> to generate a new board with randomly placed cells or <span class='label'>Clear</span> for a clear the grid to draw your own patterns on. </p>
+<p>Click <span class='label'>Next Step</span> to advance the cells to the next stage of Life.  Click <span class='label'>Play</span> to run the simulation continuously and <span class='label'>Pause</span> to pause it.  Note that you may only draw cells on the board when simulation is not running.  </p>
+<p>Pick a color below to display the live cells in.  </p>
 <br>
 
-<button id="reset" type="button">Random</button>
+<button id="random" type="button">Random</button>
 <button id="clear" type="button">Clear</button>
 <button id="nextstep" type="button">Next Step</button>
 <button id="play" type="button">Play</button>
 
 <table id="canvas_container">
 </table>
+
+<div class="color_swatch">
+	<div class="color default"></div>
+	<div class="color red"></div>
+	<div class="color orange"></div>
+	<div class="color yellow"></div>
+	<div class="color grey"></div>
+	<div class="color teal"></div>
+	<div class="color aqua"></div>
+	<div class="color lime"></div>
+</div>
 <!--
 execute the JavaScript
 -->

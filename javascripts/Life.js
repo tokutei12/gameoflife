@@ -50,10 +50,6 @@ Life = function(width, height, density, preset){
     },
     // return the number of live neighboring cells
     that.countNeighbors = function(x, y){
-        // return undefined to set off an error if the given loc is invalid
-        if(!that.validLocation(x, y)){
-            return undefined;
-        }
         var neighborLocs = [-1, 0, 1];
         var aliveNeighbors = 0;
         for (var i = 0; i < neighborLocs.length; i++){
@@ -116,6 +112,7 @@ Life = function(width, height, density, preset){
                 }
             }
         }
+        // check for endgame conditions
         var endgame = (grid.compare2d(newgrid));
         grid = newgrid;
         return endgame;

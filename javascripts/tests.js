@@ -49,27 +49,26 @@ test("Test validLocation function", function() {
     equal(life.validLocation(2, 2), false, "(2,2) is an invalid location");
 });
 
-test("Test checkNeighbors function", function() {
+test("Test countNeighbors function", function() {
     // initialize 4x4 board
     var preset = [[true, false, false, false],
                   [true, false, true, false],
                   [false, true, false, false],
                   [true, true, false, true]];
     var life = Life(0, 0, 0, preset);
-    equal(life.checkNeighbors(-1,-1), undefined, "returns undefined for invalid locations");
-    equal(life.checkNeighbors(0, 3), 1, "returns correct value for neighbors of dead cell in corner (0,3)");
-    equal(life.checkNeighbors(0, 0), 1, "returns correct value for live cell (doesn't count itself) in corner (0,0)");
-    equal(life.checkNeighbors(1, 2), 1, "correctly checks value for cell with eight neighbors");
+    equal(life.countNeighbors(0, 3), 1, "returns correct value for neighbors of dead cell in corner (0,3)");
+    equal(life.countNeighbors(0, 0), 1, "returns correct value for live cell (doesn't count itself) in corner (0,0)");
+    equal(life.countNeighbors(1, 2), 1, "correctly checks value for cell with eight neighbors");
     // initialize 1x1 board
     var preset2 = [[true]];
     var life2 = Life(0, 0, 0, preset2);
-    equal(life2.checkNeighbors(0, 0), 0, "returns correct value for a cell with no neighbors");
+    equal(life2.countNeighbors(0, 0), 0, "returns correct value for a cell with no neighbors");
     //initialize 3x3 board
     var preset3 = [[true, true, true], 
                    [true, true, true], 
                    [true, true, true]];
     var life3 = Life(0, 0, 0, preset3);
-    equal(life3.checkNeighbors(1, 1), 8, "returns correct value for cell with maximum of eight live neighbors");
+    equal(life3.countNeighbors(1, 1), 8, "returns correct value for cell with maximum of eight live neighbors");
 });
 
 test("Test meetLivingConditions function", function(){

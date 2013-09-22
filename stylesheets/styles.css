@@ -4,10 +4,10 @@ html {
 }
 
 body {
-	background-color:#222;
-	color:#FFF;
+	background-color: #222;
+	color: #FFF;
 	font-family:'Helvetica Neue', Arial;
-	width:960px;
+	width: 960px;
 }
 
 h3 {
@@ -21,9 +21,16 @@ p {
 	line-height:1.5em;
 }
 
-p > strong {
+.label {
+	background-color: #555;
 	color: #FFF;
-	font-weight: 500;
+	display: inline;
+	font-size: 11px;
+	font-weight: 200;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	padding: 5px;
+	margin: 0 5px 0;
 }
 
 ul {
@@ -47,10 +54,11 @@ li {
 }
 
 #canvas_container {
+	cursor: crosshair;
+	display: inline-block;
 	margin: 15px 0;
 	width: 640px; 
 	height: 400px;
-	cursor: crosshair;
 }
 
 #canvas_container tr{
@@ -61,13 +69,11 @@ li {
 #canvas_container td {
 	width: 8px;
 	margin-left: 2px;
-	background-color: rgb(0, 0, 0);
 }
 
 #canvas_container td.alive {
 	width: 8px;
 	margin-left: 2px;
-	background-color: rgb(255,255,255);
 }
 
 #player-functions {
